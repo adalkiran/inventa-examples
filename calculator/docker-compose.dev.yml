@@ -1,0 +1,29 @@
+version: '3'
+services:
+  go-orchestrator:
+#    entrypoint: /entrypoint-dev.sh
+    environment:
+    - "DEVELOPMENT_SEARCH_PATH=/github-repos"
+    volumes:
+    - ../../:/github-repos
+
+  go-calculator-service:
+#    entrypoint: /entrypoint-dev.sh
+    environment:
+    - "DEVELOPMENT_SEARCH_PATH=/github-repos"
+    volumes:
+    - ../../:/github-repos
+
+  py-calculator-service:
+#    entrypoint: /entrypoint-dev.sh
+    environment:
+    - "DEVELOPMENT_SEARCH_PATH=/github-repos"
+    volumes:
+    - ../../:/github-repos
+
+  py-linalg-service:
+#    entrypoint: /entrypoint-dev.sh
+    environment:
+    - "DEVELOPMENT_SEARCH_PATH=/github-repos"
+    volumes:
+    - ../../:/github-repos

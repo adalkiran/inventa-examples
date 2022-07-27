@@ -1,0 +1,9 @@
+go 1.18
+
+use (
+    ./
+)
+
+// If DEVELOPMENT_SEARCH_PATH environment variable specified, search for go-inventa package 
+// in the specified path. This required for development of go-inventa itself.
+replace github.com/adalkiran/go-inventa => /github-repos/go-inventa

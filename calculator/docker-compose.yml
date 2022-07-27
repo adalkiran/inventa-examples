@@ -1,0 +1,88 @@
+version: '3'
+services:
+  redis:
+    image: calculator/redis
+    build:
+      context: redis # Dockerfile location
+      args:
+        # See for available variants: https://hub.docker.com/_/redis?tab=tags
+        - VARIANT:7.0.1-bullseye
+    volumes:
+      - "./redis/templates:/templates:cached"
+      - "./redis/data:/data"
+    environment:
+    - REDIS_PORT
+    - REDIS_PASSWORD
+
+  go-orchestrator:
+    image: calculator/go-orchestrator
+    build:
+      context: go-orchestrator # Dockerfile location
+      args:
+        # See for available variants: https://hub.docker.com/_/golang?tab=tags
+        - VARIANT:1.18.3-bullseye
+    # See: https://code.visualstudio.com/docs/remote/create-dev-container#_set-up-a-folder-to-run-in-a-container
+    # [Optional] Required for ptrace-based debuggers like C++, Go, and Rust
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      # Mount the root folder that contains .git
+      - "./go-orchestrator:/workspace:cached"
+    environment:
+    - REDIS_HOST
+    - REDIS_PORT
+    - REDIS_PASSWORD
+
+  go-calculator-service:
+    image: calculator/go-calculator-service
+    build:
+      context: go-calculator-service # Dockerfile location
+      args:
+        # See for available variants: https://hub.docker.com/_/golang?tab=tags
+        - VARIANT:1.18.3-bullseye
+    # See: https://code.visualstudio.com/docs/remote/create-dev-container#_set-up-a-folder-to-run-in-a-container
+    # [Optional] Required for ptrace-based debuggers like C++, Go, and Rust
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      # Mount the root folder that contains .git
+      - "./go-calculator-service:/workspace:cached"
+    environment:
+    - REDIS_HOST
+    - REDIS_PORT
+    - REDIS_PASSWORD
+    deploy:
+      replicas: 5
+      
+
+  py-calculator-service:
+    image: calculator/py-calculator-service
+    build:
+      context: py-calculator-service # Dockerfile location
+    volumes:
+      - "./py-calculator-service:/workspace:cached"
+    environment:
+    - PYTHONUNBUFFERED="1"
+    - REDIS_HOST
+    - REDIS_PORT
+    - REDIS_PASSWORD
+    deploy:
+      replicas: 5
+
+  py-linalg-service:
+    image: calculator/py-linalg-service
+    build:
+      context: py-linalg-service # Dockerfile location
+    volumes:
+      - "./py-linalg-service:/workspace:cached"
+    environment:
+    - PYTHONUNBUFFERED="1"
+    - REDIS_HOST
+    - REDIS_PORT
+    - REDIS_PASSWORD
+    deploy:
+      replicas: 5
