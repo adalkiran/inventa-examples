@@ -168,21 +168,21 @@ func doOneRemoteCalculation() {
 
 	logging.Infof(logging.ProtoAPP, "Remote calculation of %s(%d, %d) = %d  (service language: %s)", "calculate-sum", number1, number2, sumResponseInt, remoteServiceLanguage)
 
-	// Doing Substraction
+	// Doing Subtraction
 
-	substractResponse, err := calculatorModule.Inventa.CallSync(calculatorModule.SelfDescriptor.Encode(), "calculate-substract", args, 3*time.Second)
+	subtractResponse, err := calculatorModule.Inventa.CallSync(calculatorModule.SelfDescriptor.Encode(), "calculate-subtract", args, 3*time.Second)
 	if err != nil {
-		logging.Errorf(logging.ProtoAPP, "Remote calculation failed (%s): %s", "calculate-substract", err)
+		logging.Errorf(logging.ProtoAPP, "Remote calculation failed (%s): %s", "calculate-subtract", err)
 		return
 	}
-	remoteServiceLanguage = substractResponse[0]
+	remoteServiceLanguage = subtractResponse[0]
 
-	substractResponseInt, err := strconv.Atoi(substractResponse[1])
+	subtractResponseInt, err := strconv.Atoi(subtractResponse[1])
 	if err != nil {
-		logging.Errorf(logging.ProtoAPP, "Remote response (%s) couldn't be converted to int: %s", substractResponse, err)
+		logging.Errorf(logging.ProtoAPP, "Remote response (%s) couldn't be converted to int: %s", subtractResponse, err)
 		return
 	}
-	logging.Infof(logging.ProtoAPP, "Remote calculation of %s(%d, %d) = %d  (service language: %s)", "calculate-substract", number1, number2, substractResponseInt, remoteServiceLanguage)
+	logging.Infof(logging.ProtoAPP, "Remote calculation of %s(%d, %d) = %d  (service language: %s)", "calculate-subtract", number1, number2, subtractResponseInt, remoteServiceLanguage)
 }
 
 func selectOneCalculatorService() *CalculatorModule {

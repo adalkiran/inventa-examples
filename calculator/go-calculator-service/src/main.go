@@ -50,8 +50,8 @@ func main() {
 	}
 
 	RPCCommandFnRegistry = map[string]inventa.RPCCommandFn{
-		"calculate-sum":       rpcCommandCalculateSum,
-		"calculate-substract": rpcCommandCalculateSubstract,
+		"calculate-sum":      rpcCommandCalculateSum,
+		"calculate-subtract": rpcCommandCalculateSubtract,
 	}
 
 	waitGroup.Add(1)
@@ -90,7 +90,7 @@ func rpcCommandCalculateSum(req *inventa.RPCCallRequest) []string {
 	return []string{"go", string(strconv.Itoa(result))}
 }
 
-func rpcCommandCalculateSubstract(req *inventa.RPCCallRequest) []string {
+func rpcCommandCalculateSubtract(req *inventa.RPCCallRequest) []string {
 	number1, err := strconv.Atoi(req.Args[0])
 	if err != nil {
 		return req.ErrorResponse(err)

@@ -49,7 +49,7 @@ def rpcCommandCalculateSum(req: RPCCallRequest) -> list[bytes]:
     #Sending result value with this service's programming language name, just to show at orchestrator log.
     return ["python", str(result)]
 
-def rpcCommandCalculateSubstract(req: RPCCallRequest) -> list[bytes]:
+def rpcCommandCalculateSubtract(req: RPCCallRequest) -> list[bytes]:
     number1 = None
     number2 = None
     try:
@@ -66,7 +66,7 @@ def rpcCommandCalculateSubstract(req: RPCCallRequest) -> list[bytes]:
 
 RPCCommandFnRegistry = {
     "calculate-sum":  rpcCommandCalculateSum,
-    "calculate-substract": rpcCommandCalculateSubstract,
+    "calculate-subtract": rpcCommandCalculateSubtract,
 }
 
 def connect_to_redis() -> Inventa:
