@@ -7,6 +7,13 @@
 
 Cross-language example projects to demonstrate how Inventa works and how to use it as microservice registry and for executing RPC.
 
+Currently only "calculator" example project is available.
+
+![Orchestrator registering logs](calculator/docs/images/01-orchestrator-registering-logs.png)
+
+Running containers (some of them are replicated):
+
+![Running containers](calculator/docs/images/02-running-containers.png)
 ## **WHY THIS PROJECT?**
 
 This project aims to present you how to use the Inventa library. Inventa can be used in Orchestrator or Service roles. You can find example usages for both roles. E.g., the calculator/go-orchestrator project uses Inventa on Orchestrator role. The other projects use Inventa on Service role.
@@ -15,7 +22,9 @@ For more information, play with the project in "calculator" folder, as follows:
 
 ## **INSTALLATION and RUNNING**
 
-This project was designed to run in Docker Container. Docker Compose file creates some containers, with some replica instances:
+This project was designed to run in Docker Container. For some configurations, you can check out docker-compose.yaml and .env file in "calculator" folder.
+
+Docker Compose file creates some containers, with some replica instances:
 * **redis:** Runs a Redis instance.
 * **go-orchestrator:** The only orchestrator in the calculator project. Other services will register themselves to this application. After this, it will call:
     * "calculate-sum" and "calculate-subtract" remote procedures with two random integer arguments, in every 2 seconds.
@@ -27,16 +36,26 @@ This project was designed to run in Docker Container. Docker Compose file create
         * Arguments will be two random matrices, which are suitable for matrix multiplication. To be valid, matrices should be in shapes like A=(m x n), B=(n, p). This first call shows how a valid response is generated.
         * Arguments will be two constant matrices, which are suitable for matrix multiplication.
         * Arguments will be two constant matrices, which are NOT suitable for matrix multiplication. This example will show you how the service will respond you the error message.
-    
+
+![Orchestrator calculation logs](calculator/docs/images/03-orchestrator-calculation-logs.png)
+
 * **go-calculator-service:** The service will register itself to the orchestrator, and can respond to "calculate-sum" and "calculate-subtract" procedure calls. Written in Go language.
     <br>
     Can be more than one, by docker-compose.yml file's replica values, default is 5.
+
+![go-calculator-service logs](calculator/docs/images/04-go-calculator-service-logs.png)
+
 * **py-calculator-service:** The service will register itself to the orchestrator, and can respond to "calculate-sum" and "calculate-subtract" procedure calls. Functioning the same as go-calculator-service. Written in Python language.
     <br>
     Can be more than one, by docker-compose.yml file's replica values, default is 5.
+
+![py-calculation-service logs](calculator/docs/images/05-py-calculator-service-logs.png)
+
 * **py-linalg-service:** The service will register itself to the orchestrator, and can respond to "linalg-matmul" procedure calls. Written in Python language. It can do matrix multiplication, using [NumPy](https://numpy.org) library.
     <br>
     Can be more than one, by docker-compose.yml file's replica values, default is 5.
+
+![py-linalg-service logs](calculator/docs/images/06-py-linalg-service-logs.png)
 
 You can run it in production mode or development mode.
 
