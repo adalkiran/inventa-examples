@@ -92,8 +92,8 @@ Then, follow these steps:
 * This command creates (if they don't exist) required containers in Docker, then connects inside of calculator-[your-selected-service] container for development and debugging purposes.
 * Wait until the containers are created, configured, and related VS Code server extensions installed inside the container. This can take some time. VS Code can ask for some required installations, click "Install All" for these prompts.
 * After completion of all installations, press <kbd>F5</kbd> to start server application.
-<br>
-**Note:** Maybe you must kill existing running service processes by terminal.
+    <br>
+    **Note:** Maybe you must kill existing running service processes by terminal.
 * Then, you can keep track other services with docker logs.
 
 <br>
