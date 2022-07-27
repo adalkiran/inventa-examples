@@ -102,9 +102,9 @@ def exception_handler(loop, context):
         print("Error:", context["exception"], "\nwith stack trace:\n", traceback_str)
 
 def main():
-    print("Welcome to Calculator Calculate Service in Python!")
+    print("Welcome to Calculator Linear Algebra Service in Python!")
     print("=================================")
-    print("This module acts as calculator service server.\n\n\n")
+    print("This module acts as linear algebra service server.\n\n\n")
 
     event_loop = asyncio.get_event_loop()
     event_loop.set_exception_handler(exception_handler)
